@@ -1,16 +1,61 @@
 <html>
     <head>
         <title>Test</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script>
+                $(function(){
+                    $("button").click(function(){
+
+                        Uname = $("#nama").val();
+                        Uhost = $("#host").val();
+                        Uport = $("#port").val();
+                        Utoken = $("#token").val();
+                        Udescription = $("#description").val();
+
+
+
+                                $.post("coba",
+                                {
+                                    name: Uname,
+                                    host: Uhost,
+                                    port: Uport,
+                                    token: Utoken,
+                                    description: Udescription
+                                },
+                                function(data,status){
+                                    alert("Data: " + data + "\nStatus: " + status);
+                                });
+
+                                $.get("out", function(data, status){
+                                                alert("Data: " + data + "\nStatus: " + status);
+                                                //alert("setelah print object");
+                                    var div = document.getElementById("ngasal");
+                                    var odong = "<table><tr><th>Device Name</th><th>Host</th><th>Port</th></tr>";
+                                    alert("Data length: " + data.length)
+                                    for (var i=0; i<data.length; i++) {
+                                        //alert("Host 0: " + data[0].Host);
+                                        //alert("Device name: " + data[i].Device_name);
+                                        //alert("oke gan");
+                                        odong += "<tr><td>" + data[i].Device_name + "</td> <td>" + data[i].Host + "</td> <td>" + data[i].Port + "</td></tr>";
+                                    }
+                                    odong += "</table>"
+                                    div.innerHTML = odong;
+
+                                                               });
+
+                            });
+                        });
         </script>
     </head>
-    
+
     <body>
-        <input placeholder="nama device" type="text"></input>
-        <input placeholder="host device" type="text"></input>
-        <input placeholder="port device" type="text"></input>
-        <input placeholder="token device" type="text"></input>
-        <input placeholder="description device" type="text"></input>
-        <button></button>
+        <input id="nama" placeholder="nama device" type="text"></input>
+        <input id="host" placeholder="host device" type="text"></input>
+        <input id="port" placeholder="port device" type="text"></input>
+        <input id="token" placeholder="token device" type="text"></input>
+        <input id="description"placeholder="description device" type="text"></input>
+        <button>Input to DB</button>
+
+        <div id="ngasal"></div>
     </body>
 </html>

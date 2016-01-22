@@ -1,16 +1,59 @@
 <html>
     <head>
         <title>Test</title>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
         <script>
+                $(function(){
+                    $("button").click(function(){
+                
+
+                        Uname = $("#name").val();
+                        Uhost = $("#host").val();
+                        Uport = $("#port").val();
+                        Utoken = $("#token").val();
+                        Udescription = $("#description").val();
+
+                           var form_data = {
+                                name: Uname,
+                                host: Uhost,
+                                port: Uport,
+                                token: Utoken,
+                                description: Udescription
+                            }
+
+                           
+                                $.post("coba",
+                                {
+                                    name: Uname,
+                                    host: Uhost,
+                                    port: Uport,
+                                    token: Utoken,
+                                    description: Udescription
+                                },
+                                function(data,status){
+                                    alert("Data: " + data + "\nStatus: " + status);
+                                    //var object = jQuery.parseJSON(data);
+                                    //alert(object.data);
+                                });
+                        
+                                $.get("out", function(data, status){
+                                        alert("Data: " + data + "\nStatus: " + status);
+                                }).appendTo("#kluar");
+
+                                
+                            });
+                        });
         </script>
     </head>
     
     <body>
-        <input placeholder="nama device" type="text"></input>
-        <input placeholder="host device" type="text"></input>
-        <input placeholder="port device" type="text"></input>
-        <input placeholder="token device" type="text"></input>
-        <input placeholder="description device" type="text"></input>
+        <input id="nama" placeholder="nama device" type="text"></input>
+        <input id="host" placeholder="host device" type="text"></input>
+        <input id="port" placeholder="port device" type="text"></input>
+        <input id="token" placeholder="token device" type="text"></input>
+        <input id="description"placeholder="description device" type="text"></input>
         <button>Input to DB</button>
+
+        <div id="kluar"></div>
     </body>
 </html>
